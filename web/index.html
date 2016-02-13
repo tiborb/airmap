@@ -7,9 +7,9 @@
     <script src="../bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
     <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
     <script src="js/cluster.js"></script>
- </head>  
- <body ng-controller="BasicFirstController">
-   <leaflet width="100%" height="480px"></leaflet>
-   <h1>First steps, basic example</h1>
- </body>
+ </head>
+ <body ng-controller="GeoJSONController">
+      <h2>Air quality sensors</h2>
+      <leaflet lf-center="stuttgart" geojson="geojson" defaults="defaults" width="100%" height="600px"></leaflet>
+   </body>
 </html>
