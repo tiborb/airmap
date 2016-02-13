@@ -1,0 +1,23 @@
+{
+  "name": "particle-map",
+  "description": "map",
+  "main": "src/index.js",
+  "authors": [
+    "tiborb <tibor.barna85@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tiborb/particlemap",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-leaflet-directive": "^0.10.0",
+    "leaflet": "~0.7.7",
+    "angular": "~1.5.0"
+  }
+}
