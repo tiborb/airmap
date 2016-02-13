@@ -10,6 +10,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "restify": "~4.0.4"
+    "restify": "~4.0.4",
+    "jscs": "~2.9.0",
+    "mocha": "~2.4.5"
   }
 }
