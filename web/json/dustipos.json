@@ -1,0 +1,19 @@
+ { "type": "FeatureCollection", "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } }, "features": [ 
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.22, 48.805]}, "properties": {"name": "4.OG Balkon Stuttgart"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.268, 48.765]}, "properties": {"name": "Balkon"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.171, 48.694]}, "properties": {"name": "Balkon (offen N/W/S) Karlsruher Strasse Leinfelden-Echterdingen"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.209, 48.721]}, "properties": {"name": "Birkach Mitte"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.235, 48.777]}, "properties": {"name": "Dach shackspace"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [8.831, 48.585]}, "properties": {"name": "Herrenberg"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.153, 48.776]}, "properties": {"name": "Gutbrodstraße Balkon 1 Stock"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.198, 48.790]}, "properties": {"name": "Hinterhof Ecke Heinrich-Baumann-Strasse / Neckarstrasse Stuttgart-Ost"} } 
+,
+{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [9.178, 48.767]}, "properties": {"name": "Olgastrasse 2.Stock"} } 
+ ] }
