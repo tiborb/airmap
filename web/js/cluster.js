@@ -1,4 +1,4 @@
-var app = angular.module("demoapp", ["leaflet-directive"]);
+var app = angular.module("demoapp", ["ui-leaflet"]);
 app.controller("GeoJSONController", [ '$scope', '$http', 'leafletData', function($scope, $http, leafletData) {
   angular.extend($scope, {
       stuttgart: {
