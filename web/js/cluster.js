@@ -1,72 +1,93 @@
 angular
   .module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ui-leaflet', 'chart.js'])
   .controller('GeoJSONController', ['$scope', '$http', 'leafletData', function($scope, $http, leafletData) {
+
+    var dataPoints = [
+        [48.74, 9.21, 0.3],
+        [48.73, 9.20, 0.4] ];
+
     angular.extend($scope, {
-      stuttgart: {
-        lat: 48.74,
-        lng: 9.21,
-        zoom: 10
-      },
-      defaults: {
-        scrollWheelZoom: true
+        stuttgart: {
+          lat: 48.74,
+          lng: 9.21,
+          zoom: 10
+        },
+        layers: {
+            baselayers: {
+                osm: {
+                    name: 'OpenStreetMap',
+                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    type: 'xyz'
+                }
+            },
+            overlays: {
+                heatmap: {
+                    name: 'Heat Map',
+                    type: 'webGLHeatmap',
+                    data: dataPoints,
+                    visible: true
+                }
+            }
+        }
+    });
+
+
+    L.GeoJSON = L.GeoJSON.extend({
+      addTo: function(map) {
+        var self = this;
+        map.addLayer(this.markers);
+        var parentRemove = L.GeoJSON.prototype.onRemove;
+        L.GeoJSON.prototype.onRemove = function(map) {
+          self.markers.removeLayer(self);
+          delete self.markers;
+          parentRemove(map);
+        };
+        return this;
       }
     });
 
-    L.GeoJSON = L.GeoJSON.extend({
-    addTo: function(map) {
-      var self = this;
-      map.addLayer(this.markers);
-      var parentRemove = L.GeoJSON.prototype.onRemove;
-      L.GeoJSON.prototype.onRemove = function(map) {
-        self.markers.removeLayer(self);
-        delete self.markers;
-        parentRemove(map);
-      };
-      return this;
-    }
-  });
-
     L.geoJson = function(geojson, options) {
-    var geoJSON = new L.GeoJSON(geojson, options);
-    var markers = new L.MarkerClusterGroup({
-      spiderfyOnMaxZoom: false,
-      showCoverageOnHover: true,
-      zoomToBoundsOnClick: true,
-      disableClusteringAtZoom: 18
-    });
-    markers.setGeoJSON = function(data) {
-      geoJSON.setGeoJSON(data);
+      var geoJSON = new L.GeoJSON(geojson, options);
+      var markers = new L.MarkerClusterGroup({
+        spiderfyOnMaxZoom: false,
+        showCoverageOnHover: true,
+        zoomToBoundsOnClick: true,
+        disableClusteringAtZoom: 18
+      });
+      markers.setGeoJSON = function(data) {
+        geoJSON.setGeoJSON(data);
+      };
+      markers.addLayer(geoJSON);
+      geoJSON.markers = markers;
+      return markers;
     };
-    markers.addLayer(geoJSON);
-    geoJSON.markers = markers;
-    return markers;
-  };
 
     var markerClick = function($scope, leafletObject, leafletPayload, model) {
-    $scope.toggleRight();
-    console.log(model.properties.name);
-  };
+      //$scope.toggleRight();
+      console.log(model.properties.name);
+    };
 
     $scope.$on('leafletDirectiveGeoJson.click', function(ev, leafletPayload) {
-    markerClick($scope, leafletPayload.leafletObject, leafletPayload.leafletEvent, leafletPayload.model);
-  });
+      markerClick($scope, leafletPayload.leafletObject, leafletPayload.leafletEvent, leafletPayload.model);
+    });
 
     // Get the countries geojson data from a JSON
     $http.get('json/dustipos.json').success(function(data, status) {
-    angular.extend($scope, {
-      geojson: {
-        data: data,
-        style: {
-          fillColor: 'green',
-          weight: 2,
-          opacity: 1,
-          color: 'white',
-          dashArray: '3',
-          fillOpacity: 0.7
+      angular.extend($scope, {
+        geojson: {
+          data: data,
+          style: {
+            fillColor: 'green',
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7
+          }
         }
-      }
+      });
     });
-  });
+
   }])
 .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log) {
   $scope.toggleLeft = buildDelayedToggler('left');
@@ -145,7 +166,38 @@ angular
   ];
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
-  };
+  };MyApp
 });
 */
+.controller('LayersWebGLHeatmapController', ['$scope', function($scope) {
+  var dataPoints = [
+      [44.651144316,-63.586260171, 0.5],
+      [44.75, -63.5, 0.8]
+    ];
+
+  angular.extend($scope, {
+    center: {
+      lat: 44.8091,
+      lng: -63.3636,
+      zoom: 9
+    },
+    layers: {
+      baselayers: {
+        osm: {
+          name: 'OpenStreetMap',
+          url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          type: 'xyz'
+        }
+      },
+      overlays: {
+        heatmap: {
+          name: 'Heat Map',
+          type: 'webGLHeatmap',
+          data: dataPoints,
+          visible: true
+        }
+      }
+    }
+  });
+}]);
 ;
