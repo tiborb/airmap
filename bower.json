@@ -21,6 +21,7 @@
     "leaflet.markercluster": "^0.4.0",
     "ui-leaflet": "^1.0.0",
     "angular-chart.js": "^0.8.8",
-    "Chart.js": "^1.0.2"
+    "Chart.js": "^1.0.2",
+    "leaflet.heat": "Leaflet.heat#*"
   }
 }

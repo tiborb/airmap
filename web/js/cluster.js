@@ -2,35 +2,22 @@ angular
   .module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ui-leaflet', 'chart.js'])
   .controller('GeoJSONController', ['$scope', '$http', 'leafletData', function($scope, $http, leafletData) {
 
-    var dataPoints = [
-        [48.74, 9.21, 0.3],
-        [48.73, 9.20, 0.4] ];
-
     angular.extend($scope, {
-        stuttgart: {
+      stuttgart: {
           lat: 48.74,
           lng: 9.21,
           zoom: 10
-        },
-        layers: {
-            baselayers: {
-                osm: {
-                    name: 'OpenStreetMap',
-                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    type: 'xyz'
-                }
-            },
-            overlays: {
-                heatmap: {
-                    name: 'Heat Map',
-                    type: 'webGLHeatmap',
-                    data: dataPoints,
-                    visible: true
-                }
-            }
+      },
+      layers: {
+        baselayers: {
+          osm: {
+            name: 'OpenStreetMap',
+            url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            type: 'xyz'
+          }
         }
+      }
     });
-
 
     L.GeoJSON = L.GeoJSON.extend({
       addTo: function(map) {
@@ -73,6 +60,7 @@ angular
 
     // Get the countries geojson data from a JSON
     $http.get('json/dustipos.json').success(function(data, status) {
+      // cluster
       angular.extend($scope, {
         geojson: {
           data: data,
@@ -87,6 +75,26 @@ angular
         }
       });
     });
+
+    $http.get('json/heat-points.json').success(function(data) {
+      angular.extend($scope, {
+        layers: {
+          overlays: {
+            heat: {
+              name: 'Heat Map',
+              type: 'heat',
+              data: data,
+              layerOptions: {
+                radius: 40,
+                blur: 1,
+                gradient: {0.4: 'blue', 0.65: 'lime', 1: 'red'}
+              },
+              visible: true
+            }
+          }
+        }
+    })
+  });
 
   }])
 .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log) {
@@ -169,35 +177,4 @@ angular
   };MyApp
 });
 */
-.controller('LayersWebGLHeatmapController', ['$scope', function($scope) {
-  var dataPoints = [
-      [44.651144316,-63.586260171, 0.5],
-      [44.75, -63.5, 0.8]
-    ];
-
-  angular.extend($scope, {
-    center: {
-      lat: 44.8091,
-      lng: -63.3636,
-      zoom: 9
-    },
-    layers: {
-      baselayers: {
-        osm: {
-          name: 'OpenStreetMap',
-          url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          type: 'xyz'
-        }
-      },
-      overlays: {
-        heatmap: {
-          name: 'Heat Map',
-          type: 'webGLHeatmap',
-          data: dataPoints,
-          visible: true
-        }
-      }
-    }
-  });
-}]);
 ;
