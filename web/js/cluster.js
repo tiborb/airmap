@@ -154,6 +154,14 @@ angular
       });
 
   };
+
+  $scope.data = {
+     pm10: true,
+     pm25: true
+   };
+   $scope.onChange = function(cbState) {
+     $scope.message = cbState;
+   };
 })
 .controller('RightCtrl', function($scope, $timeout, $mdSidenav, $log) {
   $scope.close = function() {
