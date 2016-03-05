@@ -1,5 +1,5 @@
 angular
-  .module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ui-leaflet', 'chart.js'])
+  .module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ui-leaflet'])
   .controller('GeoJSONController', ['$scope', '$http', 'leafletData', function($scope, $http, leafletData) {
 
     angular.extend($scope, {
@@ -50,7 +50,8 @@ angular
     };
 
     var markerClick = function($scope, leafletObject, leafletPayload, model) {
-      //$scope.toggleRight();
+      //anguar.selected.name = model.properties.name;
+      $scope.toggleRight();
       console.log(model.properties.name);
     };
 
@@ -59,7 +60,7 @@ angular
     });
 
     // Get the countries geojson data from a JSON
-    $http.get('json/dustipos.json').success(function(data, status) {
+    $http.get('dustipos.json').success(function(data, status) {
       // cluster
       angular.extend($scope, {
         geojson: {
@@ -76,7 +77,7 @@ angular
       });
     });
 
-    $http.get('json/heat-points.json').success(function(data) {
+    $http.get('heat-points.json').success(function(data) {
       angular.extend($scope, {
         layers: {
           overlays: {
@@ -95,7 +96,6 @@ angular
         }
     })
   });
-
   }])
 .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log) {
   $scope.toggleLeft = buildDelayedToggler('left');
@@ -164,6 +164,11 @@ angular
    };
 })
 .controller('RightCtrl', function($scope, $timeout, $mdSidenav, $log) {
+
+  $scope.selected = {
+     name: "",
+   };
+
   $scope.close = function() {
     $mdSidenav('right').close()
       .then(function() {

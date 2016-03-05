@@ -14,22 +14,19 @@
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js'></script>
     <script src='http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js'></script>
     <script src='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.js'></script>
-    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
-    <script src="../bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-    <script src="../bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
-    <script src="../bower_components/ui-leaflet/dist/ui-leaflet.min.js"></script>
-    <script src="../bower_components/Chart.js/Chart.js"></script>
-    <script src="../bower_components/angular-chart.js/dist/angular-chart.js"></script>
-    <script src="../bower_components/leaflet.heat/dist/leaflet-heat.js"></script>
-    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="../bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="../bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="../bower_components/angular-chart.js/dist/angular-chart.css">
-    <script src="js/cluster.js"></script>
+    <script src="leaflet/dist/leaflet.js"></script>
+    <script src="leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+    <script src="angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="ui-leaflet/dist/ui-leaflet.min.js"></script>
+    <script src="leaflet.heat/dist/leaflet-heat.js"></script>
+    <link rel="stylesheet" href="leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="cluster.js"></script>
   </head>
   <body>
     <div ng-app="MyApp" class="sidenavdemoBasicUsage" ng-controller="AppCtrl" layout="column" ng-cloak="">
-    <section layout="row" flex="">
+    <section layout="row" flex="" height="100%">
       <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
         <md-toolbar class="md-theme-indigo">
@@ -42,11 +39,11 @@
           </md-checkbox>
           -->
 
-          <md-switch ng-model="data.pm10" aria-label="Show PM10">
-            PM10: {{ data.pm10 }}
+          <md-switch ng-model="data.pm10" aria-label="PM10">
+            PM1
           </md-switch>
-          <md-switch ng-model="data.pm25" aria-label="Show PM25">
-            PM25: {{ data.pm25 }}
+          <md-switch ng-model="data.pm25" aria-label="PM2.5">
+            PM2.5
           </md-switch>
 
           <md-button ng-click="close()" class="md-primary" hide-gt-md="">
@@ -59,14 +56,14 @@
       <md-content flex="" layout-padding="">
         <md-card>
           <div ng-controller="GeoJSONController" layout="column" layout-fill="" layout-align="top center">
-              <leaflet geojson="geojson" lf-center="stuttgart" layers="layers" width="100%" height="480px"></leaflet>
-        </md-card>
+              <leaflet geojson="geojson" lf-center="stuttgart" layers="layers" width="100%" height="600px"></leaflet>
           </div>
-        <div flex=""></div>
+          </md-card>
       </md-content>
 
       <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
         <md-content ng-controller="RightCtrl" layout-padding="">
+          {{ selected.name }}
           <!--
           <canvas id="line" class="chart chart-line" chart-data="data"
             chart-labels="labels" chart-legend="true" chart-series="series"
