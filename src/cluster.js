@@ -60,7 +60,7 @@ angular
     });
 
     // Get the countries geojson data from a JSON
-    $http.get('dustipos.json').success(function(data, status) {
+    $http.get('sensors').success(function(data, status) {
       // cluster
       angular.extend($scope, {
         geojson: {
@@ -77,7 +77,8 @@ angular
       });
     });
 
-    $http.get('heat-points.json').success(function(data) {
+    /*
+    $http.get('heatpoints').success(function(data) {
       angular.extend($scope, {
         layers: {
           overlays: {
@@ -96,6 +97,8 @@ angular
         }
     })
   });
+  */
+
   }])
 .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log) {
   $scope.toggleLeft = buildDelayedToggler('left');

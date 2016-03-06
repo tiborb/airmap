@@ -1,4 +1,5 @@
 var restify = require('restify');
+var sensors = require('./src/sensors');
 var server = restify.createServer();
 
 server.get('/', restify.serveStatic({
@@ -6,9 +7,8 @@ server.get('/', restify.serveStatic({
   default: 'index.html'
 }));
 
-server.get(/.*\.json/, restify.serveStatic({
-  directory: './json'
-}));
+server.get('sensors', sensors.getSensors);
+server.get('heatpoints', sensors.getHeatPoints);
 
 server.get('cluster.js', restify.serveStatic({
   directory: './src'
