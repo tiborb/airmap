@@ -1,12 +1,12 @@
 angular
   .module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ui-leaflet'])
-  .controller('GeoJSONController', ['$scope', '$http', 'leafletData', function($scope, $http, leafletData) {
+  .controller('GeoJSONController', ['$scope', '$http', 'leafletMarkerEvents', 'leafletData', function($scope, $http, leafletMarkerEvents, leafletData) {
 
     angular.extend($scope, {
       stuttgart: {
-          lat: 48.74,
-          lng: 9.21,
-          zoom: 10
+        lat: 48.74,
+        lng: 9.21,
+        zoom: 10
       },
       layers: {
         baselayers: {
@@ -34,12 +34,49 @@ angular
     });
 
     L.geoJson = function(geojson, options) {
-      var geoJSON = new L.GeoJSON(geojson, options);
+
+      var geojsonMarkerOptions = {
+        radius: 8,
+        //fillColor: '#ff7800',
+        color: '#000',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+      };
+
+      var s = $scope;
+      $scope.selectedSensor = "Nothing ...";
+      function onEachFeature(feature, layer) {
+        layer.on('click', function(e){
+          if (feature.properties && feature.properties.name) {
+              console.log(feature.properties.name);
+              s.toggleRight();
+              s.selectedSensor = feature.properties.name;
+          }
+        });
+      }
+
+      var geoJSON = new L.GeoJSON(geojson, {
+        style: function(feature) {
+            if (feature.properties.avg >= 1000) return {fillColor: "#FF0000"};
+            if (feature.properties.avg >= 500) return {fillColor: "#ff9a00"};
+            if (feature.properties.avg >= 100) return {fillColor: "#fff400"};
+            return {fillColor: "#00ff38"}
+          },
+        pointToLayer: function(feature, latlng) {
+          //console.log(feature);
+          return L.circleMarker(latlng, geojsonMarkerOptions);
+        },
+        onEachFeature: onEachFeature
+      });
       var markers = new L.MarkerClusterGroup({
         spiderfyOnMaxZoom: false,
         showCoverageOnHover: true,
         zoomToBoundsOnClick: true,
-        disableClusteringAtZoom: 18
+        disableClusteringAtZoom: 18,
+        //iconCreateFunction: function(cluster) {
+        //  return L.divIcon({ html: '<b>' + cluster.getChildCount() + '</b>' });
+        //}
       });
       markers.setGeoJSON = function(data) {
         geoJSON.setGeoJSON(data);
@@ -49,30 +86,18 @@ angular
       return markers;
     };
 
-    var markerClick = function($scope, leafletObject, leafletPayload, model) {
-      //anguar.selected.name = model.properties.name;
-      $scope.toggleRight();
-      console.log(model.properties.name);
-    };
-
-    $scope.$on('leafletDirectiveGeoJson.click', function(ev, leafletPayload) {
-      markerClick($scope, leafletPayload.leafletObject, leafletPayload.leafletEvent, leafletPayload.model);
-    });
-
     // Get the countries geojson data from a JSON
     $http.get('sensors').success(function(data, status) {
       // cluster
       angular.extend($scope, {
         geojson: {
-          data: data,
-          style: {
-            fillColor: 'green',
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.7
-          }
+          data: data
+        }
+      });
+
+      angular.extend($scope, {
+        selected: {
+          name: 'None'
         }
       });
     });
@@ -162,14 +187,14 @@ angular
      pm10: true,
      pm25: true
    };
-   $scope.onChange = function(cbState) {
+  $scope.onChange = function(cbState) {
      $scope.message = cbState;
    };
 })
 .controller('RightCtrl', function($scope, $timeout, $mdSidenav, $log) {
 
   $scope.selected = {
-     name: "",
+     name: '',
    };
 
   $scope.close = function() {

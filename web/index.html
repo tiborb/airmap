@@ -62,16 +62,9 @@
 
       <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
         <md-content ng-controller="RightCtrl" layout-padding="">
-          {{ selected.name }}
-          <!--
-          <canvas id="line" class="chart chart-line" chart-data="data"
-            chart-labels="labels" chart-legend="true" chart-series="series"
-            chart-click="onClick" >
-          </canvas>
-          -->
-          <md-button ng-click="close()" class="md-primary">
-            Close
-          </md-button>
+          <ul>
+              <li><strong ng-controller="GeoJSONController" ng-bind="selectedSensor"></strong></li>
+          </ul>
         </md-content>
       </md-sidenav>
     </section>

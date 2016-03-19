@@ -21,6 +21,11 @@
     "ui-leaflet": "^1.0.0",
     "angular-chart.js": "^0.8.8",
     "leaflet.heat": "~0.2.0",
-    "angular-simple-logger": "~0.1.7"
+    "angular-simple-logger": "~0.1.7",
+    "gulp": "~3.9.1",
+    "fs": "0.0.2",
+    "csv-parse": "~1.0.2",
+    "stream-transform": "~0.1.1",
+    "fast-csv": "~1.0.0"
   }
 }
