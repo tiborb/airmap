@@ -9,7 +9,7 @@ wget -O $TMP_FILE $URL
 
 grep -Po '(?<=href=")[^"]*' $TMP_FILE | while read -r line ; do
     #echo "Processing $line"
-    wget -O $line "$URL/$line"
+    wget -O csv/$line "$URL/$line"
 done
 
 rm $TMP_FILE
