@@ -45,23 +45,23 @@ angular
       };
 
       var s = $scope;
-      $scope.selectedSensor = "Nothing ...";
+      $scope.selectedSensor = 'Nothing ...';
       function onEachFeature(feature, layer) {
-        layer.on('click', function(e){
+        layer.on('click', function(e) {
           if (feature.properties && feature.properties.name) {
-              console.log(feature.properties.name);
-              s.toggleRight();
-              s.selectedSensor = feature.properties.name;
+            console.log(feature.properties.name);
+            s.toggleRight();
+            s.selectedSensor = feature.properties.name;
           }
         });
       }
 
       var geoJSON = new L.GeoJSON(geojson, {
         style: function(feature) {
-            if (feature.properties.avg >= 1000) return {fillColor: "#FF0000"};
-            if (feature.properties.avg >= 500) return {fillColor: "#ff9a00"};
-            if (feature.properties.avg >= 100) return {fillColor: "#fff400"};
-            return {fillColor: "#00ff38"}
+            if (feature.properties.avg >= 1000) return {fillColor: '#FF0000'};
+            if (feature.properties.avg >= 500) return {fillColor: '#ff9a00'};
+            if (feature.properties.avg >= 100) return {fillColor: '#fff400'};
+            return {fillColor: '#00ff38'};
           },
         pointToLayer: function(feature, latlng) {
           //console.log(feature);
@@ -126,19 +126,20 @@ angular
 
   }])
 .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log) {
+  $scope.filter = {
+    pm: "10",
+  };
+  $scope.applyFilter = function(){
+    console.log($scope.filter.pm);
+  };
   $scope.toggleLeft = buildDelayedToggler('left');
   $scope.toggleRight = buildToggler('right');
   $scope.isOpenRight = function() {
     return $mdSidenav('right').isOpen();
   };
 
-  /**
-   * Supplies a function that will continue to operate until the
-   * time is up.
-   */
   function debounce(func, wait, context) {
     var timer;
-
     return function debounced() {
       var context = $scope,
           args = Array.prototype.slice.call(arguments);
@@ -150,10 +151,6 @@ angular
     };
   }
 
-  /**
-   * Build handler to open/close a SideNav; when animation finishes
-   * report completion in console
-   */
   function buildDelayedToggler(navID) {
     return debounce(function() {
       $mdSidenav(navID)
@@ -174,28 +171,11 @@ angular
     };
   }
 })
-.controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
-  $scope.close = function() {
-    $mdSidenav('left').close()
-      .then(function() {
-        $log.debug('close LEFT is done');
-      });
-
-  };
-
-  $scope.data = {
-     pm10: true,
-     pm25: true
-   };
-  $scope.onChange = function(cbState) {
-     $scope.message = cbState;
-   };
-})
 .controller('RightCtrl', function($scope, $timeout, $mdSidenav, $log) {
 
   $scope.selected = {
      name: '',
-   };
+  };
 
   $scope.close = function() {
     $mdSidenav('right').close()
@@ -204,18 +184,4 @@ angular
       });
   };
 })
-/*
-.controller("LineCtrl", function ($scope) {
-
-  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  $scope.series = ['Series A', 'Series B'];
-  $scope.data = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];
-  $scope.onClick = function (points, evt) {
-    console.log(points, evt);
-  };MyApp
-});
-*/
 ;

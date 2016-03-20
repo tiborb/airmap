@@ -26,6 +26,16 @@
   </head>
   <body>
     <div ng-app="MyApp" class="sidenavdemoBasicUsage" ng-controller="AppCtrl" layout="column" ng-cloak="">
+
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding">Stuttgart air quality sensors</h3>
+          <span class="flex" flex=""></span>
+          <md-radio-group layout="row" ng-model="filter.pm" ng-change="applyFilter()">
+           <md-radio-button value="10" class="md-primary"> PM 1 </md-radio-button>
+           <md-radio-button value="25">PM 2,5</md-radio-button>
+         </md-radio-group>
+        </div>
+
       <!--
     <section layout="row" flex="" height="100%">
       <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
