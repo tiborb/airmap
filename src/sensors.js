@@ -3,7 +3,7 @@ var fs = require('fs');
 module.exports = {
   getSensors: function(req, res, next){
     // read real data here
-    fs.readFile('./json/dustipos.json', 'utf8', function(err, data){
+    fs.readFile('./json/sensors.json', 'utf8', function(err, data){
       if (err) throw err;
       var d = JSON.parse(data);
       console.log(d);
