@@ -10,12 +10,8 @@ server.get('/', restify.serveStatic({
 server.get('sensors', sensors.getSensors);
 server.get('heatpoints', sensors.getHeatPoints);
 
-server.get('cluster.js', restify.serveStatic({
-  directory: './src'
-}));
-
-server.get(/.*\.(js|css|png|gif|ico)/, restify.serveStatic({
-  directory: './node_modules'
+server.get(/(bower_components.*|\.js)/, restify.serveStatic({
+  directory: './web'
 }));
 
 server.listen(8080, function() {

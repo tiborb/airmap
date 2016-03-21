@@ -1,0 +1,29 @@
+{
+  "name": "particle-map",
+  "description": "map",
+  "main": "src/index.js",
+  "authors": [
+    "tiborb <tibor.barna85@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tiborb/airmap",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-chart.js": "^0.9.0",
+    "leaflet": "~0.7.7",
+    "angular": "~1.5.0",
+    "leaflet.markercluster": "^0.4.0",
+    "ui-leaflet": "^1.0.0",
+    "angular-chart.js": "^0.8.8",
+    "Leaflet.heat": "*",
+    "angular-simple-logger": "~0.1.7"
+  }
+}
