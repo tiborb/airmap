@@ -58,9 +58,10 @@ angular
 
       var geoJSON = new L.GeoJSON(geojson, {
         style: function(feature) {
-            if (feature.properties.avg >= 1000) return {fillColor: '#FF0000'};
-            if (feature.properties.avg >= 500) return {fillColor: '#ff9a00'};
-            if (feature.properties.avg >= 100) return {fillColor: '#fff400'};
+            //console.log(feature.properties.avgP2);
+            if (feature.properties.avgP1 >= 50000) return {fillColor: '#FF0000'};
+            if (feature.properties.avgP1 >= 10000) return {fillColor: '#ff9a00'};
+            if (feature.properties.avgP1 >= 1000) return {fillColor: '#fff400'};
             return {fillColor: '#00ff38'};
           },
         pointToLayer: function(feature, latlng) {

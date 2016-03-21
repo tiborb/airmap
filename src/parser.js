@@ -22,9 +22,8 @@ function addToGeoJson(data) {
     },
     'properties': {
       'name': '????',
-      'avg': data.P1,
-      'avgP1': data.P1,
-      'avgP2': data.P2
+      'avgP1': data.avgP1,
+      'avgP2': data.avgP2
     }
   });
   //console.log(data);
