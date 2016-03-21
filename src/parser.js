@@ -22,6 +22,7 @@ function addToGeoJson(data) {
     },
     'properties': {
       'name': '????',
+      'sensor_id': data.sensor_id,
       'avgP1': data.avgP1,
       'avgP2': data.avgP2
     }
@@ -49,7 +50,7 @@ function processFile(path, cb) {
       delimiter: ';'
     })
     .on('data', function(data) {
-      sen.id = parseInt(data.sensor_id);
+      sen.sensor_id = parseInt(data.sensor_id);
       sen.lat = (data.lat != "") ? parseFloat(data.lat) : 0;
       sen.lon = (data.lon != "") ? parseFloat(data.lon) : 0;
       sumP2 += parseFloat(data.P2);

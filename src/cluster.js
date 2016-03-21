@@ -45,13 +45,15 @@ angular
       };
 
       var s = $scope;
-      $scope.selectedSensor = 'Nothing ...';
+      $scope.selectedSensor = '';
+      $scope.selectedSensorId = 0;
       function onEachFeature(feature, layer) {
         layer.on('click', function(e) {
           if (feature.properties && feature.properties.name) {
             console.log(feature.properties.name);
             s.toggleRight();
             s.selectedSensor = feature.properties.name;
+            s.selectedSensorId = feature.properties.sensor_id;
           }
         });
       }
